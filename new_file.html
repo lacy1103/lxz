@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js" ></script>
+		<style>
+			*{margin: 0;padding: 0;}
+			.div1{
+				width: 450px;
+				height: 300px;
+				overflow: hidden;
+				display: inline-block;
+			}
+			.div1>img{width: 100%;}
+			.div2{
+				width: 450px;
+				height: 300px;
+				border: 1px solid #A9A9A9;
+				overflow: hidden;
+				display: inline-block;
+				position: relative;
+			}
+			.div2>img{
+				position: absolute;
+				width: 200%;
+				height: 200%;
+			}
+			.list1{
+				width: 70px;
+				height: 50px;
+				float: left;
+				margin-left: 10px;
+			}
+			.list1>img{width: 100%;}
+			#zhezhao{
+				width: 100px;
+				height: 100px;
+				background: #BC8F8F;
+				opacity: 0.7;
+				display: none;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="div1">
+			<img src="images/a1.png" alt="" class="img1" />
+			<div id="zhezhao"></div>
+		</div>
+		<div class="div2"></div>
+		<div class="list">
+			<div class="list1">
+				<img src="images/a1.png" alt="" class="listimg1" />
+			</div>	
+			<div class="list1">
+				<img src="images/34.jpg" alt="" class="listimg2" />
+			</div>	
+			<div class="list1">
+				<img src="images/a1.png" alt="" class="listimg3" />
+			</div>	
+			<div class="list1">
+				<img src="images/a1.png" alt="" class="listimg4" />
+			</div>	
+			<div class="list1">
+				<img src="images/a1.png" alt="" class="listimg5" />
+			</div>
+		</div>
+		
+		<script>
+			$(function(){
+				$('.list1').mouseover(function(){
+					$('.div1').children()[0].src = $(this).children()[0].src;
+				});
+				$('.div1').mousemove(function(e){					
+					$('#zhezhao').css({
+						left: e.clientX-50+'px',
+						top: e.clientY-50+'px',
+						display: 'block'
+					});
+					var $img = $('.div1').children().eq(0);
+					$('.div2').empty();
+					$('.div2').append($img.clone());
+					$('.img1').css({
+						left: -(e.clientX-50)*2+'px',
+						top: -(e.clientY-50)*2+'px'
+					});
+					if(50>e.clientX||e.clientX>450||50>e.clientY||e.clientY>300) {
+						$('#zhezhao').css({
+							display: 'none'
+						});
+					}else{ //(400<e.clientX&&e.clientX<450||250<e.clientY&&e.clientY<300) 
+						$('#zhezhao').css({
+							left: e.clientX-50+'px',
+							top: e.clientY-50+'px',
+							display: 'block'
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

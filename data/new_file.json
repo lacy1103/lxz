@@ -1,0 +1,170 @@
+{
+	"id": 1,
+	"name": "品牌正品",
+	"types": [
+		{
+			"id": 1,
+			"name": "A1"
+		},
+		{
+			"id": 2,
+			"name": "A2"
+		},
+		{
+			"id": 3,
+			"name": "A3"
+		},
+		{
+			"id": 4,
+			"name": "A4"
+		}
+	],
+	"contents": [
+		{
+			"id": 1,
+			"name": "B1",
+			"types": [
+				{
+					"id": 1,
+					"name": "C1"
+				},
+				{
+					"id": 2,
+					"name": "C2"
+				},
+				{
+					"id": 3,
+					"name": "C3"
+				},
+				{
+					"id": 4,
+					"name": "C4"
+				},
+				{
+					"id": 5,
+					"name": "C5"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "B2",
+			"types": [
+				{
+					"id": 1,
+					"name": "C1"
+				},
+				{
+					"id": 2,
+					"name": "C2"
+				},
+				{
+					"id": 3,
+					"name": "C3"
+				},
+				{
+					"id": 4,
+					"name": "C4"
+				},
+				{
+					"id": 5,
+					"name": "C5"
+				}
+			]
+		},
+		{
+			"id": 3,
+			"name": "B3",
+			"types": [
+				{
+					"id": 1,
+					"name": "C1"
+				},
+				{
+					"id": 2,
+					"name": "C2"
+				},
+				{
+					"id": 3,
+					"name": "C3"
+				},
+				{
+					"id": 4,
+					"name": "C4"
+				},
+				{
+					"id": 5,
+					"name": "C5"
+				}
+			]
+		},
+		{
+			"id": 4,
+			"name": "B4",
+			"types": [
+				{
+					"id": 1,
+					"name": "C1"
+				},
+				{
+					"id": 2,
+					"name": "C2"
+				},
+				{
+					"id": 3,
+					"name": "C3"
+				},
+				{
+					"id": 4,
+					"name": "C4"
+				},
+				{
+					"id": 5,
+					"name": "C5"
+				}
+			]
+		}
+	],
+	"imglist": [
+		{
+			"id": 1,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 2,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 3,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 4,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 5,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 6,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 7,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 8,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 9,
+			"src":"images/34.jpg"
+		},
+		{
+			"id": 10,
+			"src":"images/34.jpg"
+		}
+	]
+}

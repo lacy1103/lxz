@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://www.dmaku.com/demo/moban/2019091554100565/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" class="root61">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link href="./css/common.css" rel="stylesheet" type="text/css">
+		<link href="./css/iconfont.css" rel="stylesheet" type="text/css">
+		<link href="./css/style.css" rel="stylesheet" type="text/css">
+		<link href="./css/shopdetail.css" rel="stylesheet" type="text/css">
+
+		<script src="./js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<script src="./js/common.js"></script>
+		<script src="./js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+		<script src="./js/common_js.js" type="text/javascript"></script>
+		<script src="./js/footer.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/axios.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/vuex.js"></script>
+		<script type="text/javascript" src="js/store.js"></script>
+		<title>Dome1</title>
+	</head>
+	<!-- 根组件 -->
+	<script type="text/x-template" id="top">
+		<div>
+			<!--顶部广告-->
+			<div class="p_f_name infonav_hidden">
+			</div>
+			<!--悬浮广告-->
+			<div class="mod_qr">
+				<a href="javascript:void(0);" @click="shangpinxq(shangpingData.id)" class="mod_qr_bd" style="overflow: hidden;"><img v-for="(time,index) in shangpingData.imgarr" :key="index" v-if="index == 0" :src="time.imgurl+time.imgname" width="100%" height="100%"></a>
+				<a href="javascript:void(0);" id="close" class="fixed_qr_close"><em class="iconfont icon-close2"></em></a>
+			</div>
+			<!--左侧悬浮菜单样式-->
+			<div class="Suspension" id="left_nav" style="top: 211.5px; display: none;">
+				<div class="Suspension_top"></div>
+				<div class="Suspension_menu">
+					<ul>
+						<li v-for="(time,index) in Suspension_menu_listL" :key="index">
+							<a href="javascript:void(0);" @click="fenleiss(time.id)" class="">{{time.name}}</a>
+						</li>
+					</ul>
+				</div>
+				<div class=""></div>
+			</div>
+			<!--顶部图层-->
+			<div id="header_top">
+				<div id="top">
+					<div class="Inside_pages">
+						<div class="Collection">您好，欢迎光临！<em></em>
+							<a href="javascript:void(0);" @click="collection">收藏我们</a>
+						</div>
+						<div class="hd_top_manu clearfix">
+							<ul class="clearfix">
+								<li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！</li>
+								<li class="hd_menu_tit" data-addclass="hd_menu_hover">
+									<a href="javascript:void(0);" onclick="alert('亲，客服忙')">联系我们</a>
+								</li>
+								<li class="hd_menu_tit list_name" data-addclass="hd_menu_hover">
+									<a href="javascript:void(0);" onclick="alert('敬请期待')" class="hd_menu">客户服务</a>
+									<div class="hd_menu_list">
+										<ul>
+											<li v-for="(time,index) in hd_menu_list" :key="index">
+												<a href="javascript:void(0);" onclick="alert('暂未上线')">{{time.name}}</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--样式-->
+				<!--顶部样式2-->
+				<div id="header " class="header page_style">
+					<div class="logo">
+						<a href="javascript:void(0);" @click="shangpinxq(shangpingData.id)"><img v-for="(time,index) in shangpingData.imgarr" :key="index" v-if="index == 0" :src="time.imgurl+time.imgname" width="218" height="122"></a>
+					</div>
+					<!--结束图层-->
+					<div class="Search">
+						<p><input name="" type="text" v-model="t_value" class="text"><input name="" type="submit" @click="fenleiss(t_value)" value="搜 索" class="Search_btn"></p>
+						<p class="Words">
+							<a v-for="(time,index) in Words_list" :key="index" href="javascript:void(0);" @click="fenleiss(time.name)">{{time.name}}</a>
+						</p>
+					</div>
+					<!--购物车样式-->
+					<div class="hd_Shopping_list" id="Shopping_list">
+						<div class="s_cart"><em class="iconfont icon-cart2"></em>
+							<a href="javascript:void(0);">我的购物车</a> <i class="ci-right">&gt;</i><i class="ci-count" id="shopping-amount">{{$store.getters.doneTodos4.length}}</i></div>
+						<div class="dorpdown-layer">
+							<div class="spacer"></div>
+							<!--<div class="prompt"></div><div class="nogoods"><b></b>购物车中还没有商品，赶紧选购吧！</div>-->
+							<ul class="p_s_list">
+								<li v-for="(time,index) in $store.getters.doneTodos4" :key="index">
+									<div class="img" @click="shangpinxq(time.id)"><img :src="time.imgarr[0].imgurl+time.imgarr[0].imgname""></div>
+									<div class="content">
+										<p>
+											<a href="javascript:void(0);">产品名称</a>{{time.name}}
+										</p>
+										<p>颜色分类:{{time.color}}  尺码:{{time.size}}</p>
+									</div>
+									<div class="Operations">
+										<p class="Price">￥{{time.discount}}</p>
+										<p>
+											<a href="javascript:void(0);" @click="deleteshangpin(time.id)">删除</a>
+										</p>
+									</div>
+								</li>
+							</ul>
+							<div class="Shopping_style">
+								<div class="p-total">共<b>{{$store.getters.doneTodos4.length}}</b>件商品　共计<strong>￥ {{TotalPrice}}</strong></div>
+								<a href="javascript:void(0);" @click="Settlement" title="结算" id="btn-payforgoods" class="Shopping">去购物车结算</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--菜单导航样式-->
+				<div id="Menu" class="clearfix">
+					<div class="index_style clearfix">
+						<div id="allSortOuterbox" @mouseleave="a1=false">
+							<div class="t_menu_img"></div>
+							<div class="Category" @mouseover="a1=true">
+								<a href="javascript:void(0);"><em></em>所有产品分类</a>
+							</div>
+							<div class="hd_allsort_out_box_new" v-show="$store.getters.doneTodos2 != 'xiangqing' && a1">
+								<!--左侧栏目开始-->
+								<ul class="Menu_list">
+									<!--<li ng-repeat="time in Menu_listData" on-finish-render-filters class="name on">-->
+									<li v-for="o in 7" :key="o" class="name">
+										<div class="Menu_name">
+											<a href="javascript:void(0);">{{Menu_listData.name}}</a> <span>&lt;</span></div>
+										<div class="link_name">
+											<p>
+												<a v-for="time1 in Menu_listData.types" :key="time1.id" href="javascript:void(0);">{{time1.name}}</a>
+											</p>
+										</div>
+										<div class="menv_Detail">
+											<div class="cat_pannel clearfix">
+												<div class="hd_sort_list">
+													<dl v-for="time2 in Menu_listData.contents" :key="time2.id" class="clearfix" :data-tpc="time2.id">
+														<dt><a href="javascript:void(0);">{{time2.name}}<i>&gt;</i></a></dt>
+														<dd>
+															<a href="javascript:void(0);" v-for="time3 in time2.types" :key="time3.id">{{time3.name}}</a>
+														</dd>
+													</dl>
+												</div>
+												<div class="Brands">
+													<a v-for="time4 in Menu_listData.imglist" :key="time4.id" href="javascript:void(0);" class="logo_Brands"><img :src="time4.src"></a>
+												</div>
+											</div>
+											<!--品牌-->
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--菜单栏-->
+						<div class="Navigation" id="Navigation">
+							<ul class="Navigation_name">
+								<li v-for="(time,index) in Navigation_name_list" :key="index" :class="(index == Navint1)?'on':''">
+									<a href="javascript:void(0);" @click="Navint1 = index;fenleiss(index)">{{time.name}}</a>
+								</li>
+							</ul>
+						</div>
+						<a href="javascript:void(0);" class="link_bg"><img src="./img/link_bg_03.png"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="index">
+		<div class="">
+			<!--幻灯片部分-->
+			<sh-index1></sh-index1>
+			<!---->
+			<div class="index_style clearfix">
+				<!--广告限时特价-->
+				<sh-index2></sh-index2>
+				<!--限时特卖-->
+				<sh-index3></sh-index3>
+				<!--品牌展示-->
+				<sh-index4></sh-index4>
+				<!--产品版块-->
+				<sh-index5></sh-index5>
+				<!--猜你喜欢样式-->
+				<div class="like_p">
+					<div class="title_name"><span>猜你喜欢</span></div>
+					<!---->
+					<sh-liebiao></sh-liebiao>
+				</div>
+			</div>
+		</div>
+	</script>
+	<!-- 公用组件 -->
+	<script type="text/x-template" id="index1">
+		<div id="slideBox" class="slideBox"><!--幻灯片部分-->
+			<div class="hd">
+				<ul class="smallUl">
+					<li v-for="(time,index) in datalist.imgarr" :key="index" :class="(index == 0)?'on':''">{{time}}</li>
+				</ul>
+			</div>
+			<div class="bd">
+				<ul>
+					<li v-for="(time,index) in datalist.imgarr" @click="shangpinxq(datalist.id)" :key="index" :style="(index == 0)?'display: list-item;':'display: none;'">
+						<a href="javascript:void(0);" target="_blank">
+							<div :style="'background:url('+time.imgurl+time.imgname+') no-repeat rgb(207, 231, 255); background-position:center ; width:100%; height:460px;'"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+			<a class="prev" href="javascript:void(0)"></a>
+			<a class="next" href="javascript:void(0)"></a>
+		</div>
+	</script>
+	<script type="text/x-template" id="index2">
+		<div class="p_Deals"><!--广告限时特价-->
+			<div class="Deals_title" style="overflow: hidden;" @click="shangpinxq(datalist1.id)">
+				<div class="title_name">
+					<h1>限时特价</h1>
+					<h2>-大牌火热热卖中-</h2>
+				</div>
+				<img v-for="(time,index) in datalist1.imgarr" :key="index" v-if="index==0" :src="time.imgurl+time.imgname" width="100%" height="100%">
+			</div>
+			<div class="Deals_list">
+				<ul class="products">
+					<li v-for="(time,index) in datalist5" @click="shangpinxq(time.id)" :key="index" v-if="index != 0">
+						<a href="javascript:void(0);">
+							<img v-for="(time1,index) in time.imgarr" :key="index" v-if="index<2" :class="(index == 1)?'title':''" :src="time1.imgurl+time1.imgname" >
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="index3">
+		<div class="p_Section clearfix"><!--产品版块-->
+			<div class="Section_title">
+				<div class="name"><em>1F</em>品牌正品</div>
+				<div class="p_link">
+					<a href="javascript:void(0);">钩子</a> |
+					<a href="javascript:void(0);">XX</a> |
+					<a href="javascript:void(0);">ZZ</a> |
+					<a href="javascript:void(0);">蜻蜓</a> |
+					<a href="javascript:void(0);">蝎子</a> |
+					<a href="javascript:void(0);">莆田</a> |
+					<a href="javascript:void(0);">未知</a>
+				</div>
+			</div>
+			<div class="Section_info clearfix">
+				<div class="pro_ad_slide">
+					<div class="hd">
+						<ul>
+							<li class="">1</li>
+							<li class="on">2</li>
+						</ul>
+					</div>
+					<div class="bd">
+						<ul>
+							<li :style="(index == 0)?'display: none;':'display: list-item;'" @click="shangpinxq(datalist1.id)" v-for="(time,index) in datalist1.imgarr" :key="index" v-if="index<2">
+								<a href="javascript:void(0);"><img :src="time.imgurl+time.imgname" width="598" height="449"></a>
+							</li>
+						</ul>
+					</div>
+					<a class="prev" href="javascript:void(0)"><em class="arrow"></em></a>
+					<a class="next" href="javascript:void(0)"><em class="arrow"></em></a>
+				</div>
+				<!--产品列表-->
+				<div class="pro_list">
+					<ul>
+						<li v-for="(time,index) in datalist7" @click="shangpinxq(time.id)" :key="index" v-if="index != 0">
+							<a href="javascript:void(0);">
+								<img v-for="(time1,index) in time.imgarr" :src="time1.imgurl+time1.imgname" :key="index" v-if="index == 0" width="180px" height="150px"></a>
+							<a href="javascript:void(0);" class="p_title_name">{{time.name}}</a>
+							<div class="Numeral"><span class="price"><i>￥</i>{{time.price}}</span><span class="Sales">销量<i>345</i>件</span></div>
+						</li>
+					</ul>
+				</div>
+				<div class="pro_ads">
+					<ul>
+						<li v-for="(time,index) in datalist7" @click="shangpinxq(time.id)" :key="index" v-if="index != 0" class="border">
+							<a href="javascript:void(0);"><img v-for="(time1,index) in time.imgarr" :src="time1.imgurl+time1.imgname" :key="index" v-if="index == 0"  width="198" height="140px"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="index4">
+		<div class="Limit_p"><!--限时特卖-->
+			<div class="Limit_title" style="overflow: hidden;" @click="shangpinxq(datalist1.id)"><img v-for="(time,index) in datalist1.imgarr" :key="index" v-if="index == 0" :src="time.imgurl+time.imgname" width="100%" height="100%">
+				<div class="title_name">
+					<h1>限时团购</h1>
+					<h2>LIMIT BUY</h2>
+					<h3>品牌限时优惠促销</h3></div>
+			</div>
+			<div class="Limit_list">
+				<ul class="p_t_list">
+					<li v-for="(time,index) in datalist8" @click="shangpinxq(time.id)" :key="index" v-if="index > 0 && index < 7">
+						<a href="javascript:void(0);"><span>{{time.name}} </span>
+							<img v-for="(time1,index) in time.imgarr" :src="time1.imgurl+time1.imgname" :key="index" v-if="index == 0" width="180" height="170">
+							<div class="time"><em class="iconfont icon-time"></em>剩余时间：05时03分45秒</div>
+						</a>
+					</li>
+					<li class="Limit_name" @click="shangpinxq(datalist2.id)">
+						<a href="javascript:void(0);"><img v-for="(time,index) in datalist2.imgarr" :key="index" v-if="index == 0" :src="time.imgurl+time.imgname" width="243" height="399">
+							<div class="time"><em class="iconfont icon-time"></em>剩余时间：05时03分45秒</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="index5">
+		<div class="Brand_Show" id="Brand_Show"><!--品牌展示-->
+			<div class="parHd  Toggle">
+				<ul>
+					<li class="on">国际大牌<em></em></li>
+					<li>推荐品牌<em></em></li>
+					<li>国货精品<em></em></li>
+				</ul>
+			</div>
+			<div class="parBd list">
+				<div class="parBdIn">
+					<ul>
+						<li class="brand_list">
+							<a v-for="(time,index) in datalist12" @click="shangpinxq(time.id)" :key="index" v-if="index < 10" href="javascript:void(0);" class="brand_logo">
+								<img v-for="(time1,index) in time.imgarr" :src="time1.imgurl+time1.imgname" :key="index" v-if="index == 0" width="160" height="80">
+								<span>{{time.name}}</span>
+							</a>
+						</li>
+						<li class="brand_ad" @click="shangpinxq(datalist1.id)">
+							<div class="AD_slideBox" id="AD_slideBox">
+								<div class="hd">
+									<ul>
+										<li v-for="o in 3" :key="o" :class="(o == 2)?'on':''">1</li>
+									</ul>
+								</div>
+								<div class="bd">
+									<ul>
+										<li :style="(index == 2)?'display: list-item;':'display: none;'" v-for="(time,index) in datalist1.imgarr" :key="index" v-if="index < 3">
+											<a href="javascript:void(0);"><img :src="time.imgurl+time.imgname" width="199" height="280"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="prev" href="javascript:void(0)"><em class="iconfont icon-left"></em></a>
+			<a class="next" href="javascript:void(0)"><em class="iconfont icon-right"></em></a>
+		</div>
+	</script>
+	<script type="text/x-template" id="liebiao">
+		<div class="like_p index_style">
+			<div class="list">
+				<ul class="list_style">
+					<li v-for="(time,index) in $store.getters.doneTodos1" :key="index" class="p_info_u" @click="fun1(time.id)">
+						<a href="javascript:void(0);" class="p_img" style="overflow: hidden;"><img :src="time.imgarr[0].imgurl+time.imgarr[0].imgname" width="100%" height="100%"></a>
+						<a href="javascript:void(0);" class="name">{{time.title}}</a>
+						<div class="Numeral"><span class="price"><i>￥</i>{{time.price}}</span><span class="Sales">销量<i>{{time.surplu}}</i>件</span></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+	<!-- 根组件 -->
+	<script type="text/x-template" id="bottom">
+		<div class="">
+			<div class="slogen">
+				<div class="index_style">
+					<ul class="wrap">
+						<li v-for="(time,index) in index_styleData" :key="index">
+							<a href="javascript:void(0);" style="overflow: hidden;"><img :src="time.src" data-bd-imgshare-binded="1" width="100%" height="100%"></a>
+							<b>{{time.name}}</b>
+							<span>{{time.title}}</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--底部图层-->
+			<div class="phone_style">
+				<div class="index_style">
+					<span class="phone_number"><em class="iconfont icon-dianhua"></em>400-8820-345</span><span class="phone_title">客服热线 7X24小时 贴心服务</span>
+				</div>
+			</div>
+			<div class="footerbox clearfix">
+				<div class="clearfix">
+					<div class="">
+						<dl v-for="time in clearfixData" :key="time.id">
+							<dt>{{time.name}}</dt>
+							<dd v-for="time2 in time.data" :key="time2.id">
+								<a href="javascript:void(0);">{{time2.name}}</a>
+							</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="text_link">
+					<p>
+						<a href="javascript:void(0);" v-for="time in text_linkData" :key="time.id">{{time.name}}</a>｜
+					</p>
+					<p>津ICP备19017033号 Copyright ©2019 天津鞋业有限公司 All Rights Reserved. Technical support:CDDGG Group
+					</p>
+				</div>
+			</div>
+			<!--右侧菜单栏购物车样式-->
+			<div class="fixedBox">
+				<ul class="fixedBoxList">
+					<li v-for="time in dataWQ" :key="time.id" class="fixeBoxLi code cart_bd " style="display:block;" id="cartboxs">
+						<span class="fixeBoxSpan iconfont icon-erweima"></span> <strong>{{time.name}}</strong>
+						<div class="cartBox">
+							<div class="bjfff"></div>
+							<div class="QR_code">
+								<p><img src="img/weixin.png" width="150px" height="150px" style=" margin-top:10px;"></p>
+								<p>{{time.name}}扫一扫，关注我们</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="xiangqing">
+		<div class="">
+			<!-----商品详情部分------->
+			<div class="shopdetails">
+			<!-------放大镜-------->
+			<div id="leftbox">
+				<div id="showbox">
+					<div id="zhezhao"></div>
+					<div class="modeDiv"></div>
+					<div class="imgshowDiv">
+						<b>
+							<img :src="imgsrc">
+						</b>
+						<span></span>
+					</div>
+					<p>
+						<img :src="imgsrc">
+					</p>
+				</div>
+				<!--展示图片盒子-->
+				<div id="showsum">
+					<p style="">
+						<span v-for="(time,index) in xqData.imgarr" key="time.id" :style="'left:'+leftpx+'px;'" @click="setimgID(index)">
+							<img :src="time.imgurl+time.imgname" height="60">
+						</span>
+					<div></div>
+				</div>
+				<!--展示图片里边-->
+				<p class="showpage">
+					<a href="javascript:void(0);" id="showlast" @click="clickLeft(1)"> &lt; </a>
+					<a href="javascript:void(0);" id="shownext" @click="clickLeft(-1)"> &gt; </a>
+				</p>
+
+			</div>
+			<!----中间----->
+
+			<div class="centerbox">
+				<p class="imgname">{{xqData.name}}</p>
+				<p class="Aprice">价格：<samp>￥{{xqData.price}}</samp></p>
+				<p class="price">促销价：<samp>￥{{xqData.discount}}</samp></p>
+				<p class="youhui">店铺优惠：<samp>购物满两件打八折</samp></p>
+				<p class="kefu">客服：10086</p>
+				<ul>
+					<li class="kuanshi">款式：</li>
+					<li v-for="(time,index) in xqData.imgarr" class="now shopimg">
+						<a href="javascript:void(0);" title="熊猫套装"><img :src="time.imgurl+time.imgname" width="45"></a>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<p class="chima">尺码：<span v-for="(time,index) in xqData.sizearr">{{time}}</span></p>
+				<p class="chima">颜色：<span v-for="(time,index) in xqData.colorarr">{{time}}</span></p>
+				<p class="buy">
+					<a href="javascript:void(0);" id="firstbuy" @click="fun2(xqData.id)">立即购买</a>
+					<a href="javascript:void(0);" @click="fun3(xqData.id)">加入购物车</a>
+				</p>
+				<div class="clear"></div>
+				<div class="fenx">
+					<a href="javascript:void(0);"><img src="img/tell07.png"></a>
+				</div>
+				<p class="fuwu">服务承诺：</p>
+				<p class="pay">支付方式：</p>
+			</div>
+
+			<!-----右边------->
+			<div class="rightbox">
+				<p class="name">——热卖商品</p>
+				<div class="" v-for="(time,index) in listData">
+					<img :src="time.imgarr[0].imgurl+time.imgarr[0].imgname" width="130" height="180">
+					<p>￥{{time.price}}元</p>
+				</div>
+			</div>
+
+		</div>
+		</div>
+	</script>
+	<script type="text/x-template" id="test">
+		<div class="like_p index_style">
+			<hr />
+			{{$store.getters.doneTodos}}
+		</div>
+	</script>
+	<body>
+		<div id="myVue">
+			<sh-top></sh-top>
+			<sh-index v-if="$store.getters.doneTodos2 == 'index'"></sh-index>
+			<sh-liebiao v-if="$store.getters.doneTodos2 == 'liebiao'"></sh-liebiao>
+			<sh-xiangqing v-if="$store.getters.doneTodos2 == 'xiangqing'"></sh-xiangqing>
+			<sh-bottom></sh-bottom>
+			<!--<test></test>-->
+		</div>
+		<script src="js/vueModel.js"></script>
+	</body>
+</html>
